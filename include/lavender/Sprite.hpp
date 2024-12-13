@@ -37,7 +37,7 @@ namespace ui {
             auto wrapper = utils::generateWrapper(node);
 
            (void)utils::applyChild(this, wrapper);
-            utils::applySingleConstrainedLayout(this, wrapper);
+            utils::applyScaledConstrainedLayout(this, wrapper);
 
             delete this;
             return wrapper;

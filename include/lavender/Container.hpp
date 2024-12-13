@@ -31,7 +31,7 @@ namespace ui {
     };
 
     namespace impl {
-        class ContainerLayout : public cocos2d::Layout {
+        class ContainerLayout : public geode::Layout {
         public:
             std::optional<float> m_width;
             std::optional<float> m_height;

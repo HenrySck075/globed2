@@ -11,7 +11,7 @@ namespace ui {
         LAVENDER_ADD_ID();
         LAVENDER_ADD_SCALE();
         LAVENDER_ADD_SIZE();
-        LAVENDER_ADD_COLOR();
+        LAVENDER_ADD_COLOR4();
 
         std::optional<std::string> fileName;
         std::optional<std::string> frameName;
@@ -30,15 +30,24 @@ namespace ui {
                 return nullptr;
             }
 
-            utils::applySizedConstrainedLayout(this, node, false);
-
             utils::applyID(this, node);
             utils::applyScale(this, node);
-            utils::applySize(this, node);
-            utils::applyColor(this, node);
+            if (this->width.has_value()) {
+                node->setContentWidth(this->width.value() / node->getScaleX());
+            }
+            if (this->height.has_value()) {
+                node->setContentHeight(this->height.value() / node->getScaleY());
+            }
+            if (this->size.has_value()) {
+                node->setContentSize(this->size.value() / node->getScale());
+            }
+            utils::applyColor4(this, node);
+
+            auto wrapper = utils::generateWrapper(node);
+            utils::applySizedConstrainedLayout(this, wrapper);
 
             delete this;
-            return node;
+            return wrapper;
         }
     };
 }

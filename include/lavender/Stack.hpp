@@ -12,7 +12,7 @@ namespace ui {
     };
 
     namespace impl {
-        class StackLayout : public cocos2d::Layout {
+        class StackLayout : public geode::Layout {
         public:
             Alignment m_alignment;
             StackFit m_fit;
@@ -30,6 +30,7 @@ namespace ui {
 
             void apply(cocos2d::CCNode* in) override {
                 auto const [minSize, maxSize] = utils::getConstraints(in);
+                cocos2d::CCSize fittedSize; 
 
                 for (auto child : geode::cocos::CCArrayExt<cocos2d::CCNode*>(in->getChildren())) {
                     switch (m_fit) {
@@ -43,9 +44,15 @@ namespace ui {
                     child->updateLayout();
 
                     auto const childSize = child->getContentSize();
-                    auto const stepSize = (maxSize - childSize) / 2.f; // single step to change alignment by 1
+                    fittedSize.width = std::max(fittedSize.width, childSize.width);
+                    fittedSize.height = std::max(fittedSize.height, childSize.height);
+                }
+                in->setContentSize(fittedSize);
+                for (auto child : geode::cocos::CCArrayExt<cocos2d::CCNode*>(in->getChildren())) {
+                    auto const childSize = child->getContentSize();
+                    auto const stepSize = (fittedSize - childSize) / 2.f; // single step to change alignment by 1
 
-                    auto const center = maxSize / 2.f;
+                    auto const center = fittedSize / 2.f;
                     auto const offset = cocos2d::CCSize(
                         m_alignment.x * stepSize.width,
                         m_alignment.y * stepSize.height
@@ -55,7 +62,6 @@ namespace ui {
                     child->setPosition(center + offset);
                     child->setAnchorPoint(ccp(0.5f, 0.5f));
                 }
-                in->setContentSize(maxSize);
             }
             cocos2d::CCSize getSizeHint(cocos2d::CCNode* in) const override {
                 return in->getContentSize();

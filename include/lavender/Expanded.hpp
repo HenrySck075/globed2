@@ -49,7 +49,7 @@ namespace ui {
             }
         };
 
-        class ExpandedLayout : public cocos2d::Layout {
+        class ExpandedLayout : public geode::Layout {
         public:
             size_t m_flex;
 

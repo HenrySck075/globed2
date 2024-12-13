@@ -8,7 +8,7 @@
 
 namespace ui {
     namespace impl {
-        class ColumnLayout : public cocos2d::Layout {
+        class ColumnLayout : public geode::Layout {
         public:
             MainAxisAlignment m_mainAxis;
             CrossAxisAlignment m_crossAxis;
@@ -72,7 +72,7 @@ namespace ui {
                 }
 
                 if (totalHeight > maxSize.height) {
-                    this->warnConstraintViolation(totalHeight, maxSize.height);
+                    this->warnConstraintViolation(in, totalHeight, maxSize.height);
                 }
 
                 float const remainingHeight = maxSize.height - totalHeight;
@@ -173,8 +173,8 @@ namespace ui {
                 }
             }
 
-            virtual void warnConstraintViolation(float height, float maxHeight) {
-                geode::log::warn("Column height constraint violation {} > {}", height, maxHeight);
+            virtual void warnConstraintViolation(cocos2d::CCNode* node, float height, float maxHeight) {
+                geode::log::warn("Column height constraint violation on ({} \"{}\") {} > {}", node, node->getID(), height, maxHeight);
             }
 
             virtual cocos2d::CCSize getNodeSize(cocos2d::CCNode* node) const {
@@ -224,8 +224,8 @@ namespace ui {
                 return nullptr;
             }
 
-            void warnConstraintViolation(float width, float maxWidth) override {
-                geode::log::warn("Row width constraint violation {} > {}", width, maxWidth);
+            void warnConstraintViolation(cocos2d::CCNode* node, float height, float maxHeight) override {
+                geode::log::warn("Row width constraint violation on ({} \"{}\") {} > {}", node, node->getID(), height, maxHeight);
             }
 
             std::pair<cocos2d::CCSize, cocos2d::CCSize> getConstraints(cocos2d::CCNode* in) const override {

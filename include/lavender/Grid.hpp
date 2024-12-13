@@ -7,7 +7,7 @@
 
 namespace ui {
     namespace impl {
-        class ColumnGridLayout : public cocos2d::Layout {
+        class ColumnGridLayout : public geode::Layout {
         public:
             VerticalDirection m_direction;
             HorizontalDirection m_crossDirection;

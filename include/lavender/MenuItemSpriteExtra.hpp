@@ -10,7 +10,7 @@ namespace ui {
     struct MenuItemSpriteExtra : public BaseInitializer<MenuItemSpriteExtra> {
         LAVENDER_ADD_ID();
 
-        std::function<void(cocos2d::CCObject*)> callback;
+        std::function<void(cocos2d::CCObject*)> callback = +[](cocos2d::CCObject*) {};
 
         LAVENDER_ADD_CHILD();
 

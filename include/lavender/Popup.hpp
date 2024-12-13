@@ -73,22 +73,24 @@ namespace ui {
                 .registerWithTouchDispatcher = [](auto* self) {
                     cocos2d::CCTouchDispatcher::get()->addTargetedDelegate(self, -500, true);
                 },
-                .child = new Stack {
-                    .store = &outerStack,
-                    .children = {
-                        new Scale9Sprite {
-                            .id = this->bgId,
-                            .fileName = this->bgFrameName.has_value() ? std::nullopt : this->bgFileName,
-                            .frameName = this->bgFrameName,
-                            .size = this->size,
-                        },
-                        new Container {
-                            .size = this->size,
-                            .child = new Stack {
-                                .store = &stack,
+                .child = new Align {
+                    .child = new Stack {
+                        .store = &outerStack,
+                        .children = {
+                            new Scale9Sprite {
+                                .id = this->bgId,
+                                .fileName = this->bgFrameName.has_value() ? std::nullopt : this->bgFileName,
+                                .frameName = this->bgFrameName,
+                                .size = this->size,
                             },
+                            new Container {
+                                .size = this->size,
+                                .child = new Stack {
+                                    .store = &stack,
+                                },
+                            },
+                            this->outer,
                         },
-                        this->outer,
                     },
                 },
             };

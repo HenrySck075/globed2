@@ -9,7 +9,7 @@
 
 namespace ui {
     namespace impl {
-        class TransformLayout : public cocos2d::Layout {
+        class TransformLayout : public geode::Layout {
         public:
             float m_offsetX;
             float m_offsetY;

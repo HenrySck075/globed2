@@ -9,7 +9,7 @@
 
 namespace ui {
     namespace impl {
-        class ScrollLayerLayout : public cocos2d::Layout {
+        class ScrollLayerLayout : public geode::Layout {
         public:
             Axis m_axis;
 

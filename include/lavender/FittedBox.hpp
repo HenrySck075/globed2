@@ -7,17 +7,24 @@
 
 namespace ui {
     enum class BoxFit {
+        // Scale the child to fill the parent.
         Fill,
+        // Scale the child to fit within the parent while maintaining aspect ratio.
         Contain,
+        // Scale the child to cover the parent while maintaining aspect ratio.
         Cover,
+        // Scale the child to fit the width of the parent.
         FitWidth,
+        // Scale the child to fit the height of the parent.
         FitHeight,
+        // Do not scale the child.
         None,
+        // Scale the child down to fit within the parent if necessary.
         ScaleDown,
     };
 
     namespace impl {
-        class FittedLayout : public cocos2d::Layout {
+        class FittedLayout : public geode::Layout {
         public:
             BoxFit m_fit;
             Alignment m_alignment;

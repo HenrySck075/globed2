@@ -7,7 +7,7 @@
 
 namespace ui {
     namespace impl {
-        class TextInputLayout : public cocos2d::Layout {
+        class TextInputLayout : public geode::Layout {
         public:
             static TextInputLayout* create() {
                 auto ret = new (std::nothrow) TextInputLayout();

@@ -7,7 +7,7 @@
 
 namespace ui {
     namespace impl {
-        class RotatedLayout : public cocos2d::Layout {
+        class RotatedLayout : public geode::Layout {
         public:
             int m_quarterTurns = 0;
 

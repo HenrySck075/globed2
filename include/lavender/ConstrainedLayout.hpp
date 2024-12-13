@@ -6,7 +6,7 @@
 
 namespace ui {
     namespace impl {
-        class SingleConstrainedLayout : public cocos2d::Layout {
+        class SingleConstrainedLayout : public geode::Layout {
         public:
             bool m_updatePosition;
 
@@ -44,7 +44,41 @@ namespace ui {
             }
         };
 
-        class SizedConstrainedLayout : public cocos2d::Layout {
+        class ScaledConstrainedLayout : public geode::Layout {
+        public:
+            static ScaledConstrainedLayout* create() {
+                auto ret = new (std::nothrow) ScaledConstrainedLayout();
+                if (ret) {
+                    ret->autorelease();
+                    return ret;
+                }
+                return nullptr;
+            }
+
+            void apply(cocos2d::CCNode* in) override {
+                auto const [minSize, maxSize] = utils::getConstraints(in);
+                if (auto child = utils::getChild(in)) {
+                    auto scale = ccp(std::fabs(child->getScaleX()), std::fabs(child->getScaleY()));
+                    utils::setConstraints(child, minSize * scale, maxSize * scale);
+                    child->updateLayout();
+
+                    in->setContentSize(child->getContentSize() * scale);
+
+                    child->ignoreAnchorPointForPosition(false);
+                    child->setPosition(in->getContentSize() / 2.f);
+                    child->setAnchorPoint(ccp(0.5f, 0.5f));
+                }
+                else {
+                    in->setContentSize(minSize);
+                }
+            }
+
+            cocos2d::CCSize getSizeHint(cocos2d::CCNode* in) const override {
+                return in->getContentSize();
+            }
+        };
+
+        class SizedConstrainedLayout : public geode::Layout {
         public:
             std::optional<float> m_width;
             std::optional<float> m_height;
@@ -74,10 +108,11 @@ namespace ui {
                 }
 
                 if (auto child = utils::getChild(in); m_hasChild && child) {
-                    utils::setConstraints(child, minSize, maxSize);
+                    auto scale = ccp(std::fabs(child->getScaleX()), std::fabs(child->getScaleY()));
+                    utils::setConstraints(child, minSize * scale, maxSize * scale);
                     child->updateLayout();
 
-                    in->setContentSize(child->getContentSize());
+                    in->setContentSize(child->getContentSize() * scale);
 
                     child->ignoreAnchorPointForPosition(false);
                     child->setPosition(in->getContentSize() / 2.f);
@@ -98,6 +133,12 @@ namespace ui {
         void applySingleConstrainedLayout(auto const* data, cocos2d::CCNode* node, bool updatePosition = true) {
             node->setLayout(
                 impl::SingleConstrainedLayout::create(updatePosition)
+            );
+        }
+
+        void applyScaledConstrainedLayout(auto const* data, cocos2d::CCNode* node) {
+            node->setLayout(
+                impl::ScaledConstrainedLayout::create()
             );
         }
 

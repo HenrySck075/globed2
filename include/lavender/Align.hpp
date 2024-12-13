@@ -7,7 +7,7 @@
 
 namespace ui {
     namespace impl {
-        class AlignmentLayout : public cocos2d::Layout {
+        class AlignmentLayout : public geode::Layout {
         public:
             Alignment m_alignment;
 

@@ -14,7 +14,7 @@ namespace ui {
     };
 
     namespace impl {
-        class TextAreaLayout : public cocos2d::Layout {
+        class TextAreaLayout : public geode::Layout {
         public:
             geode::Ref<cocos2d::CCLayerColor> m_constraintError = nullptr;
             bool m_constraintErrorAdded = false;

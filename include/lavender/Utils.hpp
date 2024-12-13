@@ -125,6 +125,13 @@ namespace ui::utils {
         }
     }
 
+    inline void applyColor4(auto const* data, cocos2d::CCNodeRGBA* node) {
+        if (data->color.has_value()) {
+            node->setColor(cocos2d::ccc3(data->color->r, data->color->g, data->color->b));
+            node->setOpacity(data->color->a);
+        }
+    }
+
     inline std::pair<cocos2d::CCSize, cocos2d::CCSize> getConstraints(cocos2d::CCNode* node) {
         auto const constrain = geode::cast::typeinfo_cast<impl::ConstrainedObject*>(node->getUserObject("constrain"_spr));
         if (constrain && constrain->getABIVersion() >= 1) {
