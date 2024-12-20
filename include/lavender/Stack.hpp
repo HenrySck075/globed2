@@ -76,9 +76,9 @@ namespace ui {
 
         LAVENDER_ADD_CHILDREN();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
-            utils::applyChildren(this, node);
+            utils::applyChildren(this, node, ctx);
 
             node->setLayout(impl::StackLayout::create(this->alignment, this->fit));
 

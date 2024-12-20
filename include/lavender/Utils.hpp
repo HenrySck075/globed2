@@ -2,6 +2,7 @@
 
 #include <Geode/Geode.hpp>
 #include "ConstrainedObject.hpp"
+#include "BuildContext.hpp"
 
 namespace ui::utils {
     #define LAVENDER_ADD_ID() \
@@ -20,10 +21,10 @@ namespace ui::utils {
     #define LAVENDER_ADD_CHILDREN() \
         std::vector<Base*> children
 
-    inline bool applyChildren(auto const* data, cocos2d::CCNode* node) {
+    inline bool applyChildren(auto const* data, cocos2d::CCNode* node, BuildContext* ctx) {
         for (auto child : data->children) {
             if (child == nullptr) continue;
-            auto childNode = child->construct();
+            auto childNode = child->construct(ctx);
             node->addChild(childNode);
         }
         return data->children.size() > 0;
@@ -34,11 +35,11 @@ namespace ui::utils {
         std::function<Base*(size_t)> builder
         
 
-    inline bool applyChildrenBuilder(auto const* data, cocos2d::CCNode* node) {
+    inline bool applyChildrenBuilder(auto const* data, cocos2d::CCNode* node, BuildContext* ctx) {
         if (data->builder) {
             for (size_t i = 0; i < data->count; i++) {
                 auto child = data->builder(i);
-                auto childNode = child->construct();
+                auto childNode = child->construct(ctx);
                 node->addChild(childNode);
             }
             return true;
@@ -49,9 +50,9 @@ namespace ui::utils {
     #define LAVENDER_ADD_CHILD() \
         Base* child
 
-    inline cocos2d::CCNode* applyChild(auto const* data, cocos2d::CCNode* node) {
+    inline cocos2d::CCNode* applyChild(auto const* data, cocos2d::CCNode* node, BuildContext* ctx) {
         if (data->child != nullptr) {
-            auto childNode = data->child->construct();
+            auto childNode = data->child->construct(ctx);
             node->addChild(childNode);
             return childNode;
         }

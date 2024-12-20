@@ -16,7 +16,7 @@ namespace ui {
 
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             cocos2d::CCSprite* node;
 
             if (fileName.has_value()) {
@@ -36,7 +36,7 @@ namespace ui {
 
             auto wrapper = utils::generateWrapper(node);
 
-           (void)utils::applyChild(this, wrapper);
+            (void)utils::applyChild(this, wrapper, ctx);
             utils::applyScaledConstrainedLayout(this, wrapper);
 
             delete this;

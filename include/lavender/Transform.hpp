@@ -68,10 +68,10 @@ namespace ui {
 
         LAVENDER_ADD_CHILD();
     
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
-            (void)utils::applyChild(this, node);
+            (void)utils::applyChild(this, node, ctx);
 
             utils::applyID(this, node);
 

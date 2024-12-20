@@ -280,13 +280,13 @@ namespace ui {
         LAVENDER_ADD_CHILDREN();
         LAVENDER_ADD_CHILDREN_BUILDER();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
             utils::applyID(this, node);
 
-            if (!utils::applyChildrenBuilder(this, node)) {
-                (void)utils::applyChildren(this, node);
+            if (!utils::applyChildrenBuilder(this, node, ctx)) {
+                (void)utils::applyChildren(this, node, ctx);
             }
 
             node->setLayout(
@@ -308,13 +308,13 @@ namespace ui {
         LAVENDER_ADD_CHILDREN();
         LAVENDER_ADD_CHILDREN_BUILDER();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
             utils::applyID(this, node);
 
-            if (!utils::applyChildrenBuilder(this, node)) {
-                (void)utils::applyChildren(this, node);
+            if (!utils::applyChildrenBuilder(this, node, ctx)) {
+                (void)utils::applyChildren(this, node, ctx);
             }
             
             node->setLayout(

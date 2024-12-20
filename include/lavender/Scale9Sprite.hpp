@@ -16,7 +16,7 @@ namespace ui {
         std::optional<std::string> fileName;
         std::optional<std::string> frameName;
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             cocos2d::extension::CCScale9Sprite* node;
             
             if (fileName.has_value()) {

@@ -58,10 +58,10 @@ namespace ui {
         int quarterTurns = 0;
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
-            if (auto child = utils::applyChild(this, node)) {
+            if (auto child = utils::applyChild(this, node, ctx)) {
                 child->setRotation(this->quarterTurns * 90.f);
             } 
             node->setLayout(impl::RotatedLayout::create(this->quarterTurns));

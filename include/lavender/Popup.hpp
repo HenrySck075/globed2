@@ -11,6 +11,9 @@
 #include "Menu.hpp"
 #include "Container.hpp"
 #include "Action.hpp"
+#include "Align.hpp"
+#include "Transform.hpp"
+#include "MenuItemSpriteExtra.hpp"
 
 namespace ui {
     enum class PopupAnimation {
@@ -34,7 +37,7 @@ namespace ui {
         std::optional<std::string> closeFrameName = "GJ_closeBtn_001.png";
         std::optional<std::string> closeId;
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             cocos2d::CCAction* action = nullptr;
             float tscale = 1.f;
 
@@ -94,7 +97,7 @@ namespace ui {
                     },
                 },
             };
-            auto node = gen->construct();
+            auto node = gen->construct(ctx);
             node->runAction(cocos2d::CCFadeTo::create(0.14f, 105));
 
             outerStack->setScale(tscale);
@@ -120,9 +123,9 @@ namespace ui {
                     },
                 },
             };
-            stack->addChild(menuGen->construct());
+            stack->addChild(menuGen->construct(ctx));
             if (this->child) {
-                stack->addChild(this->child->construct());
+                stack->addChild(this->child->construct(ctx));
             }
 
             auto winSize = cocos2d::CCDirector::sharedDirector()->getWinSize();

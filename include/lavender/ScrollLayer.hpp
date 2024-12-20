@@ -5,7 +5,7 @@
 #include "Base.hpp"
 #include "Utils.hpp"
 
-#include "ConstrainedLayout.hpp"
+#include "Axis.hpp"
 
 namespace ui {
     namespace impl {
@@ -78,11 +78,11 @@ namespace ui {
         LAVENDER_ADD_CHILDREN();
         LAVENDER_ADD_CHILDREN_BUILDER();
     
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = geode::ScrollLayer::create(ccp(0, 0), true, this->axis == Axis::Vertical);
 
-            if (!utils::applyChildrenBuilder(this, node->m_contentLayer)) {
-                (void)utils::applyChildren(this, node->m_contentLayer);
+            if (!utils::applyChildrenBuilder(this, node->m_contentLayer, ctx)) {
+                (void)utils::applyChildren(this, node->m_contentLayer, ctx);
             }
 
             node->setLayout(impl::ScrollLayerLayout::create(this->axis));

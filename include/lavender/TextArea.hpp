@@ -111,7 +111,7 @@ namespace ui {
         std::optional<size_t> maxLines;
         std::optional<float> linePadding;
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = geode::SimpleTextArea::create(this->text, this->font);
 
             utils::applyID(this, node);

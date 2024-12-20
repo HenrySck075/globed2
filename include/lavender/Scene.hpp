@@ -3,6 +3,7 @@
 #include <Geode/Geode.hpp>
 
 #include "Base.hpp"
+#include "ConstrainedLayout.hpp"
 #include "Utils.hpp"
 
 namespace ui {
@@ -10,12 +11,12 @@ namespace ui {
         LAVENDER_ADD_ID();
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCScene::create();
 
             node->setAnchorPoint(ccp(0, 0));
 
-            (void)utils::applyChild(this, node);
+            (void)utils::applyChild(this, node, ctx);
             utils::applySingleConstrainedLayout(this, node);
 
             auto winSize = cocos2d::CCDirector::sharedDirector()->getWinSize();

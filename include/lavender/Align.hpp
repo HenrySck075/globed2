@@ -56,10 +56,10 @@ namespace ui {
 
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
-            if (auto child = utils::applyChild(this, node)) {
+            if (auto child = utils::applyChild(this, node, ctx)) {
                 node->setLayout(
                     impl::AlignmentLayout::create(this->alignment)
                 );
@@ -76,10 +76,10 @@ namespace ui {
         LAVENDER_ADD_ID();
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = cocos2d::CCNode::create();
 
-            if (auto child = utils::applyChild(this, node)) {
+            if (auto child = utils::applyChild(this, node, ctx)) {
                 node->setLayout(
                     impl::AlignmentLayout::create(Alignment::Center)
                 );

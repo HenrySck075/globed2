@@ -62,7 +62,7 @@ namespace ui {
 
         bool autoFocus = false;
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             auto node = geode::TextInput::create(100, this->placeholder, this->font);
 
             utils::applyID(this, node);

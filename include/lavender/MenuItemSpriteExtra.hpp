@@ -14,13 +14,13 @@ namespace ui {
 
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             if (this->child == nullptr) {
                 delete this;
                 return nullptr;
             }
 
-            auto normal = this->child->construct();
+            auto normal = this->child->construct(ctx);
             auto node = geode::cocos::CCMenuItemExt::createSpriteExtra(normal, callback);
 
             utils::applyID(this, node);

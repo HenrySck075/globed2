@@ -14,7 +14,7 @@ namespace ui {
 
         LAVENDER_ADD_CHILD();
 
-        cocos2d::CCNode* construct() const {
+        cocos2d::CCNode* construct(BuildContext* ctx) const {
             if (this->flex < 1) {
                 delete this;
                 return nullptr;
@@ -22,7 +22,7 @@ namespace ui {
 
             auto node = impl::Expanded::create(this->flex);
 
-            (void)utils::applyChild(this, node);
+            (void)utils::applyChild(this, node, ctx);
             utils::applySingleConstrainedLayout(this, node);
 
             utils::applyID(this, node);
